@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
 import requests,json,string,config
     #查询token
 def ConohaCharge():

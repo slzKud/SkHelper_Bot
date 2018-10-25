@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
 from telegram.ext import Updater, CommandHandler,MessageHandler,Filters
 import config,Message
 if __name__ == "__main__":
@@ -16,6 +18,6 @@ if __name__ == "__main__":
     updater.dispatcher.add_handler(CommandHandler('conoha', Message.conohacharge))
     updater.dispatcher.add_handler(CommandHandler('cloudcone', Message.cloudconecharge))
 
-    
+
     updater.start_polling()
     updater.idle()

@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
 #机器人本身基本配置
 Bot_Token="" #机器人Token
 Master_ID="" #管理者ID

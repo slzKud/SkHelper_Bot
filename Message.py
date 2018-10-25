@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
 from telegram.ext import Updater, CommandHandler,MessageHandler,Filters
 import config,os,Tools
 
