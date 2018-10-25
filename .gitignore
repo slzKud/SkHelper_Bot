@@ -1,0 +1,5 @@
+config.py
+Test*
+*.pyc
+*.txt
+*.xml
