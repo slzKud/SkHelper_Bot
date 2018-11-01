@@ -17,7 +17,8 @@ if __name__ == "__main__":
     updater.dispatcher.add_handler(CommandHandler('exec', Message.exec_message))
     updater.dispatcher.add_handler(CommandHandler('conoha', Message.conohacharge))
     updater.dispatcher.add_handler(CommandHandler('cloudcone', Message.cloudconecharge))
-
+    updater.dispatcher.add_handler(CommandHandler('eval', Message.eval_message))
+    updater.dispatcher.add_handler(CommandHandler('ip', Message.ip_message))
 
     updater.start_polling()
     updater.idle()

@@ -6,7 +6,8 @@
 ## 现在有的功能
     * ping/pong
     * 查询云服务器余额(支持Conoha和CloudCone)
-    * 一些常见的比如exec
+    * ip查询
+    * 一些常见的比如exec,eval
 
 ## 待填坑
     * 服务器下线警告

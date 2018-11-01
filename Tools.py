@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
-import requests,json,string,config
+import requests,json,string,config,re,os
     #查询token
 def ConohaCharge():
     header={"Accept":"application/json"}
@@ -37,3 +37,65 @@ def CloudConeCharge():
         return("你的Cloudcone主机在线,本月花费约$"+str(due))
     else:
         return("你的Cloudcone主机现在不在线,赶紧续费去！")
+
+def ip_or_domain(str):
+    ip_regex=r'((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))'
+    domain_regex=r'^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$'
+    i=re.match(ip_regex,str)
+    d=re.match(domain_regex,str)
+    if i!=None:
+        m={"Code":1,"match":i.group(0)}
+    elif d!=None:
+        m={"Code":2,"match":d.group(0)}
+    else:
+        m={"Code":-1,"match":''}
+    return m
+
+def domain_to_ip(domain):
+    ip_regex=r'((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))'
+    if ip_or_domain(domain)['Code']==2:
+        command_i="dig "+domain+" +short"
+        p=os.popen(command_i)
+        t=p.read()
+        if t=="":
+            return 'error'
+        else:
+            print(t)
+            i=re.search(ip_regex,t)
+            if i!=None:
+                return i.group(0)
+            else:
+                return 'error'
+    else:
+        return 'error'
+
+def find_ip(ip):
+    if ip_or_domain(ip)['Code']==1:
+        url="curl ip.cn/?ip="+ip
+        p=os.popen(url)
+        r=p.read()
+        r=r.replace('\n','')
+        m={"Code":1,"Text":r}
+    elif ip_or_domain(ip)['Code']==2:
+        real_ip=domain_to_ip(ip)
+        if real_ip=='error':
+            m={"Code":-1,"Text":"Error"}
+            return m
+        url="curl ip.cn/?ip="+real_ip
+        p=os.popen(url)
+        r=p.read()
+        r=r.replace('\n','')
+        m={"Code":1,"Real_IP":real_ip,"Text":r}
+    else:
+        m={"Code":-1,"Text":"Error"}
+    print(m)
+    return m
+
+def send_to_admin(msg):
+    import telegram
+    if config.Proxy_URL!="":
+        B=telegram.Bot(config.Bot_Token,request=telegram.utils.request.Request(proxy_url=config.Proxy_URL))
+    else:
+        B=telegram.Bot(config.Bot_Token)
+    B.send_message(chat_id=config.Master_ID, text=msg)
+
