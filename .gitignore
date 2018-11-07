@@ -1,7 +1,12 @@
 config.py
 Test*
+test*
 *.txt
 *.xml
+#some tools
+make.config.py
+#data
+data/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

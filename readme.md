@@ -8,9 +8,10 @@
     * 查询云服务器余额(支持Conoha和CloudCone)
     * ip查询
     * 一些常见的比如exec,eval
-
+    * Conoha及CloudCone下线警告
+    
 ## 待填坑
-    * 服务器下线警告
+    * 基于HTTP的服务器下线警告
     * Vultr/TX云/阿里云服务器线上查询
     * 闹钟/早晨提醒
     * 学校通知提醒
